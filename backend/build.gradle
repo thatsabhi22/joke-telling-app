@@ -34,7 +34,4 @@ dependencies {
 
 appengine {  // App Engine tasks configuration
     tools.cloudSdkHome="/Users/aviator/arena/GoogleCloud/google-cloud-sdk/"
-    run {
-        port = 8080
-    }
 }
