@@ -32,6 +32,20 @@ android {
         }
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        free {
+            dimension "default"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid {
+            dimension "default"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
