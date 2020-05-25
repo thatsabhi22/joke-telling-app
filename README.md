@@ -33,6 +33,8 @@ GCE module and passes them to the Android Library for display.
 ![Alt text](/Screenshots/s1.png?raw=true)
 ![Alt text](/Screenshots/s2.png?raw=true)
 ![Alt text](/Screenshots/s3.png?raw=true)
+![Alt text](/Screenshots/s4.png?raw=true)
+
 
 
 
