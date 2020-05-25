@@ -3,13 +3,18 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
+
+import androidx.core.util.Pair;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getContext;
-import static org.junit.Assert.*;
+import java.util.concurrent.ExecutionException;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,30 +25,24 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
 
     final String LOG_TAG = "ExampleInstrumentedTest";
+    Context appContext;
 
+    // This test should be run on free flavor of app
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("com.udacity.gradle.builditbigger.free", appContext.getPackageName());
     }
 
-    @SuppressWarnings("unchecked")
-    public void test() {
-
-        // Testing that Async task successfully retrieves a non-empty string
-        // You can test this from androidTest -> Run 'All Tests'
-        String result = null;
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(getContext(), null);
-        endpointsAsyncTask.execute();
-        try {
-            result = endpointsAsyncTask.get();
-            Log.d(LOG_TAG, "Retrieved a non-empty string successfully: " + result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Test
+    public void testEndpointTask() throws ExecutionException, InterruptedException {
+        String result =
+                new EndpointsAsyncTask(null)
+                        .execute(new Pair<Context, String>(appContext, "Manfred")).get();
         assertNotNull(result);
+        assertNotEquals(result, "error");
+        assertTrue(result.length() > 0);
     }
-
 }

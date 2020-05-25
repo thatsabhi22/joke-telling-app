@@ -1,13 +1,19 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
+
+import com.udacity.telljokeslib.ShowJokeActivity;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +51,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-//        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        try {
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+            String result = new EndpointsAsyncTask(progressBar)
+                    .execute(new Pair<Context, String>(this, "Manfred")).get();
+
+            Intent intent = new Intent(this, ShowJokeActivity.class);
+            intent.putExtra("theJoke", result);
+            startActivity(intent);
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }

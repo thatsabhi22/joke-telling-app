@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -16,10 +15,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="@dimen/top_margin"
         android:text="@string/instructions"
         android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp" />
+        android:textSize="@dimen/standard_text_size" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleLargeInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/tell_joke_button"
@@ -27,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/instructions_text_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/standard_margin"
         android:onClick="tellJoke"
         android:text="@string/button_text" />
 

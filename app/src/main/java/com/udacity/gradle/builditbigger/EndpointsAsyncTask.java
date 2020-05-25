@@ -1,8 +1,9 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.core.util.Pair;
 
@@ -11,13 +12,26 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-import com.udacity.telljokeslib.ShowJokeActivity;
 
 import java.io.IOException;
 
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+
     private static MyApi myApiService = null;
-    private Context context;
+
+    private ProgressBar mProgressBar;
+
+    public EndpointsAsyncTask(ProgressBar progressBar) {
+        this.mProgressBar = progressBar;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -38,10 +52,6 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
             myApiService = builder.build();
         }
-
-        context = params[0].first;
-        String name = params[0].second;
-
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
@@ -51,9 +61,8 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
-//        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(context, ShowJokeActivity.class);
-        intent.putExtra("theJoke", result);
-        context.startActivity(intent);
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 }
