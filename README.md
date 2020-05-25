@@ -30,7 +30,9 @@ GCE module and passes them to the Android Library for display.
 * Android Flavors
 
 ### Screens
-
+![Alt text](/Screenshots/s1.png?raw=true)
+![Alt text](/Screenshots/s2.png?raw=true)
+![Alt text](/Screenshots/s3.png?raw=true)
 
 
 
