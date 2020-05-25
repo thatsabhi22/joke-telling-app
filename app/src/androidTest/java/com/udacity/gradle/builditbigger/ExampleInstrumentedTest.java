@@ -38,7 +38,7 @@ public class ExampleInstrumentedTest {
     public void testEndpointTask() throws ExecutionException, InterruptedException {
         String result =
                 new EndpointsAsyncTask(null)
-                        .execute(new Pair<Context, String>(appContext, "Manfred")).get();
+                        .execute(new Pair<Context, String>(appContext, "Hello")).get();
         assertNotNull(result);
         assertNotEquals(result, "error");
         assertTrue(result.length() > 0);

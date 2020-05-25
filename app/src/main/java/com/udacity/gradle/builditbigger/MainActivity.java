@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
             String result = new EndpointsAsyncTask(progressBar)
-                    .execute(new Pair<Context, String>(this, "Manfred")).get();
+                    .execute(new Pair<Context, String>(this, getString(R.string.hello))).get();
 
             Intent intent = new Intent(this, ShowJokeActivity.class);
-            intent.putExtra("theJoke", result);
+            intent.putExtra(getString(R.string.joke_data_key), result);
             startActivity(intent);
 
         } catch (ExecutionException e) {
